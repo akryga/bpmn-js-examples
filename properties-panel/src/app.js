@@ -4,6 +4,9 @@ import 'bpmn-js/dist/assets/bpmn-js.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
 import '@bpmn-io/properties-panel/assets/properties-panel.css';
 
+import BpmnColorPickerModule from 'bpmn-js-color-picker';
+import ruTranslateModule from './ru-translate/ru-translate'
+
 import './style.less';
 
 import $ from 'jquery';
@@ -27,7 +30,9 @@ var bpmnModeler = new BpmnModeler({
   },
   additionalModules: [
     BpmnPropertiesPanelModule,
-    BpmnPropertiesProviderModule
+    BpmnPropertiesProviderModule,
+    BpmnColorPickerModule,
+    ruTranslateModule
   ]
 });
 container.removeClass('with-diagram');
