@@ -41,6 +41,7 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
+    "@bpmn-io/form-js": "^1.8.6",
     "@bpmn-io/properties-panel": "^3.13.0",
     "bpmn-js": "^16.1.0",
     "bpmn-js-color-picker": "^0.7.1",

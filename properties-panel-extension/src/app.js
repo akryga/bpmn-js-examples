@@ -24,7 +24,27 @@ import {
 } from 'min-dash';
 
 import diagramXML from '../resources/newDiagram.bpmn';
+import formSchema from '../resources/newForm.json';
 
+import { FormEditor } from '@bpmn-io/form-js';
+
+const formEditor = new FormEditor({
+  container: document.querySelector('#form-editor'),
+});
+
+function createForm(){
+  openForm(formSchema)
+}
+
+async function openForm(schema){
+
+  try{
+    await formEditor.importSchema(formSchema);  
+  }
+  catch(e){
+    console.error(e)
+  }
+}
 
 var container = $('#js-drop-zone');
 
@@ -121,9 +141,10 @@ $(function() {
   //for debug purposes
   $('.buttons > li:first-child').on('click', async (e)=>{
     // console.log(e)
+    createForm();
     bpmnModeler.saveXML({ format: true }).then(p=>{
       console.log(p.xml)
-    });
+    }).catch(console.error)
   });
 
   $('#js-create-diagram').click(function(e) {
