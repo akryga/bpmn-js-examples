@@ -6,6 +6,9 @@ import '@bpmn-io/properties-panel/assets/properties-panel.css';
 
 import './style.less';
 
+import BpmnColorPickerModule from 'bpmn-js-color-picker';
+import ruTranslateModule from './ru-translate/ru-translate'
+
 import $ from 'jquery';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 
@@ -33,7 +36,9 @@ var bpmnModeler = new BpmnModeler({
   additionalModules: [
     BpmnPropertiesPanelModule,
     BpmnPropertiesProviderModule,
-    magicPropertiesProviderModule
+    magicPropertiesProviderModule,
+    BpmnColorPickerModule,
+    ruTranslateModule
   ],
   moddleExtensions: {
     magic: magicModdleDescriptor
