@@ -15,7 +15,7 @@ const LOW_PRIORITY = 500;
  * @param {PropertiesPanel} propertiesPanel
  * @param {Function} translate
  */
-export default function MagicPropertiesProvider(propertiesPanel, translate) {
+export default function UserTaskPropertiesProvider(propertiesPanel, translate) {
 
   // API ////////
 
@@ -39,7 +39,7 @@ export default function MagicPropertiesProvider(propertiesPanel, translate) {
     return function(groups) {
 
       // Add the "magic" group
-      if (is(element, 'bpmn:StartEvent')) {
+      if (is(element, 'bpmn:UserTask')) {
         groups.push(createMagicGroup(element, translate));
       }
 
@@ -56,7 +56,7 @@ export default function MagicPropertiesProvider(propertiesPanel, translate) {
   propertiesPanel.registerProvider(LOW_PRIORITY, this);
 }
 
-MagicPropertiesProvider.$inject = [ 'propertiesPanel', 'translate' ];
+UserTaskPropertiesProvider.$inject = [ 'propertiesPanel', 'translate' ];
 
 // Create the custom magic group
 function createMagicGroup(element, translate) {
@@ -64,7 +64,7 @@ function createMagicGroup(element, translate) {
   // create a group called "Magic properties".
   const magicGroup = {
     id: 'magic',
-    label: translate('Magic properties'),
+    label: translate('Task properties'),
     entries: spellProps(element),
     tooltip: translate('Make sure you know what you are doing!')
   };

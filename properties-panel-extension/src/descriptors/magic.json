@@ -1,20 +1,30 @@
 {
-  "name": "Magic",
-  "prefix": "magic",
-  "uri": "http://magic",
+  "name": "Activiti",
+  "prefix": "activiti",
+  "uri": "http://activiti.org/bpmn",
   "xml": {
     "tagAlias": "lowerCase"
   },
   "associations": [],
   "types": [
     {
-      "name": "BewitchedStartEvent",
+      "name": "ActivitiUserTask",
       "extends": [
-        "bpmn:StartEvent"
+        "bpmn:UserTask"
       ],
       "properties": [
         {
-          "name": "spell",
+          "name": "formKey",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "assignee",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "priority",
           "isAttr": true,
           "type": "String"
         }

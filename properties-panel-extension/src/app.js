@@ -16,8 +16,8 @@ import {
   BpmnPropertiesPanelModule,
   BpmnPropertiesProviderModule
 } from 'bpmn-js-properties-panel';
-import magicPropertiesProviderModule from './provider/magic';
-import magicModdleDescriptor from './descriptors/magic';
+import userTaskPropertiesProviderModule from './provider/magic';
+import userTaskModdleDescriptor from './descriptors/magic';
 
 import {
   debounce
@@ -36,12 +36,12 @@ var bpmnModeler = new BpmnModeler({
   additionalModules: [
     BpmnPropertiesPanelModule,
     BpmnPropertiesProviderModule,
-    magicPropertiesProviderModule,
+    userTaskPropertiesProviderModule,
     BpmnColorPickerModule,
     ruTranslateModule
   ],
   moddleExtensions: {
-    magic: magicModdleDescriptor
+    magic: userTaskModdleDescriptor
   }
 });
 
@@ -118,6 +118,13 @@ if (!window.FileList || !window.FileReader) {
 // bootstrap diagram functions
 
 $(function() {
+  //for debug purposes
+  $('.buttons > li:first-child').on('click', async (e)=>{
+    // console.log(e)
+    bpmnModeler.saveXML({ format: true }).then(p=>{
+      console.log(p.xml)
+    });
+  });
 
   $('#js-create-diagram').click(function(e) {
     e.stopPropagation();

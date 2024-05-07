@@ -1,6 +1,6 @@
-import MagicPropertiesProvider from './MagicPropertiesProvider';
+import UserTaskPropertiesProvider from './UserTaskPropertiesProvider';
 
 export default {
-  __init__: [ 'magicPropertiesProvider' ],
-  magicPropertiesProvider: [ 'type', MagicPropertiesProvider ]
+  __init__: [ 'userTaskPropertiesProvider' ],
+  userTaskPropertiesProvider: [ 'type', UserTaskPropertiesProvider ]
 };
