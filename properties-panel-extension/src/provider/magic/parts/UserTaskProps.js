@@ -58,10 +58,12 @@ function Assignee(props) {
   const debounce = useService('debounceInput');
 
   const getValue = () => {
-    var ret = element.businessObject.assignee?element.businessObject.assignee: [];
+    var ret = element.businessObject.assignee?[element.businessObject.assignee]: [];
+    if(ret.length>0)
+      return ret;
     ret = ret.concat(element.businessObject.candidateUsers?element.businessObject.candidateUsers.split(','):[]);
     ret = ret.concat(element.businessObject.candidateGroups?element.businessObject.candidateGroups.split(','):[]);
-    console.log(ret)
+    // console.log(ret)
     return ret;
   };
 

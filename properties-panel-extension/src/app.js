@@ -139,7 +139,7 @@ if (!window.FileList || !window.FileReader) {
 
 $(function() {
   //for debug purposes
-  $('.buttons > li:first-child').on('click', async (e)=>{
+  $('.buttons > li:last-child').on('click', async (e)=>{
     // console.log(e)
     createForm();
     bpmnModeler.saveXML({ format: true }).then(p=>{
