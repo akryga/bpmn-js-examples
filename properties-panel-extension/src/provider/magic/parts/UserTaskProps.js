@@ -1,10 +1,10 @@
 import { html } from 'htm/preact';
 
-import { TextFieldEntry, TextAreaEntry, isTextFieldEntryEdited } from '@bpmn-io/properties-panel';
+import { TextFieldEntry, ListEntry, SelectEntry, isTextFieldEntryEdited } from '@bpmn-io/properties-panel';
 import { useService } from 'bpmn-js-properties-panel';
 
 export default function(element) {
-
+  console.log(element);
   return [
     {
       id: 'formKey',
@@ -36,7 +36,7 @@ function FormKey(props) {
 
   const getValue = () => { return element.businessObject.formKey || '' };
 
-  const setValue = value => { return modeling.updateProperties(element, { formKey: value }) };
+  const setValue = (value) => { return modeling.updateProperties(element, { formKey: value }) };
 
   return html`<${TextFieldEntry}
     id=${ id }
@@ -57,21 +57,34 @@ function Assignee(props) {
   const translate = useService('translate');
   const debounce = useService('debounceInput');
 
-  const getValue = () => { return element.businessObject.assignee || '' };
+  const getValue = () => {
+    var ret = element.businessObject.assignee?element.businessObject.assignee: [];
+    ret = ret.concat(element.businessObject.candidateUsers?element.businessObject.candidateUsers.split(','):[]);
+    ret = ret.concat(element.businessObject.candidateGroups?element.businessObject.candidateGroups.split(','):[]);
+    console.log(ret)
+    return ret;
+  };
 
-  const setValue = value => { return modeling.updateProperties(element, { assignee: value }) };
+  const setValue = (value) => { return modeling.updateProperties(element, { assignee: value }) };
 
-  return html`<${TextAreaEntry}
+  return html`<${ListEntry}
     id=${ id }
     element=${ element }
     description=${ translate('Apply a black magic Assignee') }
     label=${ translate('Assignee') }
+    items=${ getValue() }
+    sortedItems=${ getValue() }
     getValue=${ getValue }
     setValue=${ setValue }
     debounce=${ debounce }
     tooltip=${ translate('Check available Assignee in the Assigneebook.') }
   />`;
 }
+
+const PriorityOptions = [
+  {value:1, label: "Критичный"},
+  {value:2, label: "Высокий"},
+  {value:3, label: "Нормальный"}];
 
 function Priority(props) {
   const { element, id } = props;
@@ -82,16 +95,25 @@ function Priority(props) {
 
   const getValue = () => { return element.businessObject.priority || '' };
 
-  const setValue = value => { return modeling.updateProperties(element, { priority: value }) };
+  const setValue = (value) => { return modeling.updateProperties(element, { priority: value }) };
 
-  return html`<${TextFieldEntry}
-    id=${ id }
-    element=${ element }
-    description=${ translate('Apply a black magic Priority') }
-    label=${ translate('Priority') }
-    getValue=${ getValue }
-    setValue=${ setValue }
-    debounce=${ debounce }
-    tooltip=${ translate('Check available Priority in the Prioritybook.') }
-  />`;
+  const getOptions = () => {
+    return [
+      { value: 0, label: '<none>' },
+      ...PriorityOptions
+    ];
+  };
+
+  var ret = html`<${SelectEntry}
+  id=${ id }
+  element=${ element }
+  description=${ translate('Apply a black magic Priority') }
+  label=${ translate('Priority') }
+  getValue=${ getValue }
+  setValue=${ setValue }
+  getOptions=${ getOptions }
+  debounce=${ debounce }
+  tooltip=${ translate('Check available Priority in the Prioritybook.') }/>`;
+  //console.log(ret);
+  return ret;
 }

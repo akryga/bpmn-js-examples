@@ -58,15 +58,16 @@ function Spell(props) {
       }))
     ];
   };
-
-  return html`<${SelectEntry}
-    id=${ id }
-    element=${ element }
-    description=${ translate('Apply a black magic spell') }
-    label=${ translate('Spell') }
-    getValue=${ getValue }
-    setValue=${ setValue }
-    getOptions=${ getOptions }
-    debounce=${ debounce }
-  />`;
+  var ret = html`<${SelectEntry}
+  id=${ id }
+  element=${ element }
+  description=${ translate('Apply a black magic spell') }
+  label=${ translate('Spell') }
+  getValue=${ getValue }
+  setValue=${ setValue }
+  getOptions=${ getOptions }
+  debounce=${ debounce }
+/>`
+console.log(ret);
+  return ret;
 }

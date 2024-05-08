@@ -1,7 +1,7 @@
 // Import your custom property entries.
 // The entry is a text input field with logic attached to create,
 // update and delete the "spell" property.
-import spellProps from './parts/SpellProps';
+import userTaskProps from './parts/UserTaskProps';
 
 import { is } from 'bpmn-js/lib/util/ModelUtil';
 
@@ -65,7 +65,7 @@ function createMagicGroup(element, translate) {
   const magicGroup = {
     id: 'magic',
     label: translate('Task properties'),
-    entries: spellProps(element),
+    entries: userTaskProps(element),
     tooltip: translate('Make sure you know what you are doing!')
   };
 

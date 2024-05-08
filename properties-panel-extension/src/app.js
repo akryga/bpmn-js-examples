@@ -17,7 +17,7 @@ import {
   BpmnPropertiesProviderModule
 } from 'bpmn-js-properties-panel';
 import userTaskPropertiesProviderModule from './provider/magic';
-import userTaskModdleDescriptor from './descriptors/magic';
+import userTaskModdleDescriptor from './descriptors/activitiUserTask.json';
 
 import {
   debounce
@@ -26,9 +26,9 @@ import {
 import diagramXML from '../resources/newDiagram.bpmn';
 import formSchema from '../resources/newForm.json';
 
-import { FormEditor } from '@bpmn-io/form-js';
+import { Form } from '@bpmn-io/form-js';
 
-const formEditor = new FormEditor({
+const formEditor = new Form({
   container: document.querySelector('#form-editor'),
 });
 
