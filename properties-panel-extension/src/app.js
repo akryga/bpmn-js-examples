@@ -16,8 +16,10 @@ import {
   BpmnPropertiesPanelModule,
   BpmnPropertiesProviderModule
 } from 'bpmn-js-properties-panel';
-import userTaskPropertiesProviderModule from './provider/magic';
+import userTaskPropertiesProviderModule from './provider/userparts';
 import userTaskModdleDescriptor from './descriptors/activitiUserTask.json';
+
+import serviceTaskPropertiesProviderModule from './provider/servicetask';
 
 import {
   debounce
@@ -57,6 +59,7 @@ var bpmnModeler = new BpmnModeler({
     BpmnPropertiesPanelModule,
     BpmnPropertiesProviderModule,
     userTaskPropertiesProviderModule,
+    serviceTaskPropertiesProviderModule,
     BpmnColorPickerModule,
     ruTranslateModule
   ],

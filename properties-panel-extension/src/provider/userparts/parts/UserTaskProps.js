@@ -68,13 +68,14 @@ function Assignee(props) {
   };
 
   const setValue = (value) => { return modeling.updateProperties(element, { assignee: value }) };
-
+console.log(element)
   return html`<${ListEntry}
     id=${ id }
     element=${ element }
     description=${ translate('Apply a black magic Assignee') }
     label=${ translate('Assignee') }
     items=${ getValue() }
+    component=${ 'p' }
     sortedItems=${ getValue() }
     getValue=${ getValue }
     setValue=${ setValue }
