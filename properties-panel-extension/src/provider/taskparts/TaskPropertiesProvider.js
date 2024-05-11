@@ -2,6 +2,7 @@
 // The entry is a text input field with logic attached to create,
 // update and delete the "spell" property.
 import userTaskProps from './parts/UserTaskProps';
+import serviceTaskProps from './parts/ServiceTaskProps';
 
 import { is } from 'bpmn-js/lib/util/ModelUtil';
 
@@ -15,7 +16,7 @@ const LOW_PRIORITY = 500;
  * @param {PropertiesPanel} propertiesPanel
  * @param {Function} translate
  */
-export default function UserTaskPropertiesProvider(propertiesPanel, translate) {
+export default function TaskPropertiesProvider(propertiesPanel, translate) {
 
   // API ////////
 
@@ -40,9 +41,11 @@ export default function UserTaskPropertiesProvider(propertiesPanel, translate) {
 
       // Add the "magic" group
       if (is(element, 'bpmn:UserTask')) {
-        groups.push(createMagicGroup(element, translate));
+        groups.push(createUserTaskGroup(element, translate));
       }
-
+      if (is(element, 'bpmn:ServiceTask')) {
+        groups.push(createServiceTaskGroup(element, translate));
+      }
       return groups;
     };
   };
@@ -56,18 +59,32 @@ export default function UserTaskPropertiesProvider(propertiesPanel, translate) {
   propertiesPanel.registerProvider(LOW_PRIORITY, this);
 }
 
-UserTaskPropertiesProvider.$inject = [ 'propertiesPanel', 'translate' ];
+TaskPropertiesProvider.$inject = [ 'propertiesPanel', 'translate' ];
 
 // Create the custom magic group
-function createMagicGroup(element, translate) {
+function createUserTaskGroup(element, translate) {
 
   // create a group called "Magic properties".
-  const magicGroup = {
-    id: 'magic',
-    label: translate('Task properties'),
+  const propsGroup = {
+    id: 'userGroup',
+    label: translate('User Task properties'),
     entries: userTaskProps(element),
     tooltip: translate('Make sure you know what you are doing!')
   };
 
-  return magicGroup;
+  return propsGroup;
+}
+
+// Create the custom service group
+function createServiceTaskGroup(element, translate) {
+
+  // create a group called "Magic properties".
+  const propsGroup = {
+    id: 'serviceGroups',
+    label: translate('Service Task properties'),
+    entries: serviceTaskProps(element),
+    tooltip: translate('Make sure you know what you are doing!')
+  };
+
+  return propsGroup;
 }

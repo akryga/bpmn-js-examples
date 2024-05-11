@@ -16,10 +16,9 @@ import {
   BpmnPropertiesPanelModule,
   BpmnPropertiesProviderModule
 } from 'bpmn-js-properties-panel';
-import userTaskPropertiesProviderModule from './provider/userparts';
-import userTaskModdleDescriptor from './descriptors/activitiUserTask.json';
 
-import serviceTaskPropertiesProviderModule from './provider/servicetask';
+import taskPropertiesProviderModule from './provider/taskparts';
+import userTaskModdleDescriptor from './descriptors/activitiUserTask.json';
 
 import {
   debounce
@@ -58,8 +57,7 @@ var bpmnModeler = new BpmnModeler({
   additionalModules: [
     BpmnPropertiesPanelModule,
     BpmnPropertiesProviderModule,
-    userTaskPropertiesProviderModule,
-    serviceTaskPropertiesProviderModule,
+    taskPropertiesProviderModule,
     BpmnColorPickerModule,
     ruTranslateModule
   ],
@@ -68,8 +66,30 @@ var bpmnModeler = new BpmnModeler({
   }
 });
 
-function createNewDiagram() {
-  openDiagram(diagramXML);
+async function createNewDiagram() {
+  // openDiagram(diagramXML);
+
+  try {
+    await bpmnModeler.createDiagram();
+
+    var procObj = bpmnModeler.get('elementRegistry').get('Process_1').businessObject,
+      startObj = bpmnModeler.get('elementRegistry').get('StartEvent_1').businessObject;
+    
+    var moddle = bpmnModeler.get('moddle');      
+    procObj.id = moddle.ids.nextPrefixed('Process_', procObj);
+    startObj.id = moddle.ids.nextPrefixed('StartEvent_', startObj);
+
+    container
+      .removeClass('with-error')
+      .addClass('with-diagram');
+  }
+  catch(err){
+    container
+      .removeClass('with-diagram')
+      .addClass('with-error');
+
+    container.find('.error pre').text(err.message);
+  }
 }
 
 async function openDiagram(xml) {
@@ -150,7 +170,7 @@ $(function() {
     }).catch(console.error)
   });
 
-  $('#js-create-diagram').click(function(e) {
+  $('#js-create-diagram').on('click',function(e) {
     e.stopPropagation();
     e.preventDefault();
 
@@ -160,7 +180,7 @@ $(function() {
   var downloadLink = $('#js-download-diagram');
   var downloadSvgLink = $('#js-download-svg');
 
-  $('.buttons a').click(function(e) {
+  $('.buttons a').on('click', function(e) {
     if (!$(this).is('.active')) {
       e.preventDefault();
       e.stopPropagation();

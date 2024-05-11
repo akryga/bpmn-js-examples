@@ -4,7 +4,7 @@ import { TextFieldEntry, ListEntry, SelectEntry, isTextFieldEntryEdited } from '
 import { useService } from 'bpmn-js-properties-panel';
 
 export default function(element) {
-  console.log(element);
+  // console.log(element);
   return [
     {
       id: 'formKey',
@@ -56,6 +56,10 @@ function Assignee(props) {
   const modeling = useService('modeling');
   const translate = useService('translate');
   const debounce = useService('debounceInput');
+  
+  const onAddAssignee = function onAdd(){
+    console.log(getValue())
+  };
 
   const getValue = () => {
     var ret = element.businessObject.assignee?[element.businessObject.assignee]: [];
@@ -68,10 +72,11 @@ function Assignee(props) {
   };
 
   const setValue = (value) => { return modeling.updateProperties(element, { assignee: value }) };
-console.log(element)
+// console.log(element)
   return html`<${ListEntry}
     id=${ id }
     element=${ element }
+    onAdd=${ onAddAssignee }
     description=${ translate('Apply a black magic Assignee') }
     label=${ translate('Assignee') }
     items=${ getValue() }
@@ -84,10 +89,7 @@ console.log(element)
   />`;
 }
 
-const PriorityOptions = [
-  {value:1, label: "Критичный"},
-  {value:2, label: "Высокий"},
-  {value:3, label: "Нормальный"}];
+
 
 function Priority(props) {
   const { element, id } = props;
@@ -98,6 +100,11 @@ function Priority(props) {
 
   const getValue = () => { return element.businessObject.priority || '' };
 
+  const PriorityOptions = [
+    {value:1, label: translate("Critical")},
+    {value:2, label: translate("High")},
+    {value:3, label: translate("Normal")}];
+  
   const setValue = (value) => { return modeling.updateProperties(element, { priority: value }) };
 
   const getOptions = () => {

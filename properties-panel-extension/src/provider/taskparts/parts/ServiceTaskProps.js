@@ -4,7 +4,7 @@ import { TextFieldEntry, isTextFieldEntryEdited } from '@bpmn-io/properties-pane
 import { useService } from 'bpmn-js-properties-panel';
 
 export default function(element) {
-  console.log(element);
+  // console.log(element);
   return [
     {
       id: 'implementation',
