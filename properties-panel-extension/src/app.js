@@ -49,22 +49,7 @@ async function openForm(schema){
 
 var container = $('#js-drop-zone');
 
-var bpmnModeler = new BpmnModeler({
-  container: '#js-canvas',
-  propertiesPanel: {
-    parent: '#js-properties-panel'
-  },
-  additionalModules: [
-    BpmnPropertiesPanelModule,
-    BpmnPropertiesProviderModule,
-    taskPropertiesProviderModule,
-    BpmnColorPickerModule,
-    ruTranslateModule
-  ],
-  moddleExtensions: {
-    magic: userTaskModdleDescriptor
-  }
-});
+
 
 async function createNewDiagram() {
   // openDiagram(diagramXML);
@@ -158,14 +143,55 @@ if (!window.FileList || !window.FileReader) {
   registerFileDrop(container, openDiagram);
 }
 
+const themeController = document.body;
+
+themeController.addEventListener(
+  "clickControl",
+  ({ detail: { control, value } }) => {
+
+    if (control === "phoenixTheme") {
+      // value will be localStorage theme value (dark/light/auto)
+      const mode = value === 'auto' ? window.phoenix.utils.getSystemTheme() : value;
+      console.log(mode) 
+      // your code here
+
+    }
+  }
+);
+
+var bpmnModeler = new BpmnModeler({
+  container: '#js-canvas',
+  propertiesPanel: {
+    parent: '#js-properties-panel'
+  },
+  additionalModules: [
+    BpmnPropertiesPanelModule,
+    BpmnPropertiesProviderModule,
+    taskPropertiesProviderModule,
+    BpmnColorPickerModule,
+    ruTranslateModule
+  ],
+  moddleExtensions: {
+    magic: userTaskModdleDescriptor
+  },
+  // bpmnRenderer: {
+  //   defaultFillColor: $('body').css('background-color'),
+  //   defaultStrokeColor: $('body').css('color'),
+  //   defaultTextColor: 'red'
+  // }
+});
+
 // bootstrap diagram functions
 
 $(function() {
+  bpmnModeler.repa
+  // console.log('background-color: '+$('body').css('background-color'))
+  // console.log('color: '+$('body').css('color'))
+
   //for debug purposes
   $('.buttons > li:last-child').on('click', async (e)=>{
-    // console.log(e)
-    createForm();
-    bpmnModeler.saveXML({ format: true }).then(p=>{
+    // createForm();
+    bpmnModeler.saveXML({ format: true }).then( p => {
       console.log(p.xml)
     }).catch(console.error)
   });

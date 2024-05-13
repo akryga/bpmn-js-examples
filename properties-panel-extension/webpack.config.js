@@ -38,6 +38,7 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin({
       patterns: [
+        { from: 'D:\\phoenix-v1.15.0-and-v1.13.0\\phoenix-v1.15.0-and-v1.13.0\\phoenix-v1.15.0\\public', to: '.' },
         { from: 'src/index.html', to: '.' }
       ]
     })

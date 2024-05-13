@@ -4,27 +4,15 @@
   box-sizing: border-box;
 }
 
-body,
-html {
-
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-
-  font-size: 12px;
-
-  height: 100%;
-  max-height: 100%;
-  padding: 0;
-  margin: 0;
-}
-
 a:link {
   text-decoration: none;
 }
 
-.content {
+.bpmn-content {
   position: relative;
-  width: 100%;
-  height: 100%;
+  height: calc(100vh - 8rem);
+  // background-color: white;
+  margin: -2rem -1.2rem -2.3rem -2.4rem;
 
   > .message {
     width: 100%;
@@ -82,26 +70,22 @@ a:link {
 
 
 .buttons {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-
-  padding: 0;
+  position: relative;
+  bottom: 1rem;
+  padding-left: 0;
   margin: 0;
-  list-style: none;
 
   > li {
     display: inline-block;
-    margin-right: 10px;
-
+    margin-right: 0.5rem;
+    width: auto;
     > a {
       background: #DDD;
       border: solid 1px #666;
       display: inline-block;
-      padding: 5px;
+      padding: 0.1rem 0.5rem;
     }
   }
-
   a {
     opacity: 0.3;
   }
@@ -141,4 +125,4 @@ grid: auto-flow / 1fr 1fr 1fr;
 }
 
 /* debug styles */
-.border-1 {border: solid 1px #111;}
+.d-border-1 {border: solid 1px red;}
