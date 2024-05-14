@@ -6,3 +6,4 @@ dist/
 .DS_Store
 npm-debug.log
 properties-panel-async-extension/.vscode/settings.json
+properties-panel-extension/.vscode/settings.json
