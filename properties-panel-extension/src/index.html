@@ -2405,6 +2405,9 @@
             <div id="js-properties-panel"></div>
           </div>
             <ul class="buttons">
+              <!-- <li>
+                <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#userTaskAddAsigneeModal">Vertically centered modal</button>
+              </li> -->
               <li>
                 Download
               </li>
@@ -3553,6 +3556,24 @@
             </div>
           </div>
         </footer>
+      </div>
+     
+      <div class="modal modal-lg fade" id="userTaskAddAsigneeModal" tabindex="-1" aria-labelledby="userTaskAddAsigneeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="verticallyCenteredModalLabel">Ответственные</h5>
+              <button class="btn p-1" type="button" data-bs-dismiss="modal" aria-label="Close"><span class="fas fa-times fs-9"></span></button>
+            </div>
+            <div class="modal-body">
+              
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" type="button">Okay</button>
+              <button class="btn btn-outline-primary" type="button" data-bs-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
       </div>
       <script>
         var navbarTopStyle = window.config.config.phoenixNavbarTopStyle;

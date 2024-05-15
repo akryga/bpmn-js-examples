@@ -17,7 +17,7 @@ import {
   BpmnPropertiesProviderModule
 } from 'bpmn-js-properties-panel';
 
-import taskPropertiesProviderModule from './provider/taskparts';
+import TaskPropertiesProviderModule from './provider/taskparts';
 import userTaskModdleDescriptor from './descriptors/activitiUserTask.json';
 
 import {
@@ -100,8 +100,8 @@ async function createNewDiagram() {
     // var ootElement = canvas.getRootElement(),
     // rootElementGfx = canvas.getGraphics(rootElement);
 
-    var eventBus = bpmnModeler.get('eventBus');
-    eventBus.on('elements.changed', (e) => {
+    // var eventBus = bpmnModeler.get('eventBus');
+    bpmnModelerEventBus.on('elements.changed', (e) => {
       console.log(e)
     });
 
@@ -188,7 +188,7 @@ if (!window.FileList || !window.FileReader) {
 
 
 
-var bpmnModeler = new BpmnModeler({
+const bpmnModeler = new BpmnModeler({
   container: '#js-canvas',
   propertiesPanel: {
     parent: '#js-properties-panel'
@@ -196,7 +196,7 @@ var bpmnModeler = new BpmnModeler({
   additionalModules: [
     BpmnPropertiesPanelModule,
     BpmnPropertiesProviderModule,
-    taskPropertiesProviderModule,
+    TaskPropertiesProviderModule,
     BpmnColorPickerModule,
     ruTranslateModule
   ],
@@ -209,6 +209,19 @@ var bpmnModeler = new BpmnModeler({
   }
 });
 
+const bpmnModelerEventBus = bpmnModeler.get('eventBus');
+bpmnModelerEventBus.on('userTask.addAssignee', (e) => {
+  // const addAssigneeModal = document.getElementById('userTaskAddAsigneeModal'); 
+  const   addAssigneeModal = new bootstrap.Modal('#userTaskAddAsigneeModal', {})
+
+  $('#userTaskAddAsigneeModal .modal-body').html(
+    '<pre>'+JSON.stringify(e, null, 3)+'</pre>'+
+    '<pre>'+JSON.stringify(e, null, 3)+'</pre>'+
+    '<pre>'+JSON.stringify(e, null, 3)+'</pre>'
+  );
+  addAssigneeModal.show();
+  console.log('userTask.addAssignee', e)
+});
 
 // bootstrap diagram functions
 

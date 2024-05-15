@@ -56,9 +56,20 @@ function Assignee(props) {
   const modeling = useService('modeling');
   const translate = useService('translate');
   const debounce = useService('debounceInput');
+  //  const modeler = useService('modeler');
+  const commandStack = useService('commandStack');
   
   const onAddAssignee = function onAdd(){
-    console.log(getValue())
+    modeling._eventBus.fire('userTask.addAssignee', {
+      // element: element, 
+      businessObject: element.businessObject,
+      assignee: element.businessObject.assignee,
+      candidateUsers: element.businessObject.candidateUsers,
+      candidateGroups : element.businessObject.candidateGroups
+    });
+
+    // var eBus = commandStack.get('eventBus');
+    console.log(modeling._eventBus, element, getValue())
   };
 
   const getValue = () => {

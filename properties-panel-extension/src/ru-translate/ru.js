@@ -24,7 +24,7 @@ export default {
   "Append task": "Добавить задачу",
   "Append text annotation": "Добавить комментарий",
   "Append timer intermediate catch event": "Добавить обработчик промежуточного события-таймера",
-  "Assignee": "Ответственный",
+  "Assignee": "Ответственныe",
   "Business rule task": "Задача выполнения бизнес-правила",
   "Call activity": "Действие «Вызов»",
   "Cancel boundary event": "Граничное событие-отмена",
