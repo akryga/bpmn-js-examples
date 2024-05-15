@@ -49,20 +49,61 @@ async function openForm(schema){
 
 var container = $('#js-drop-zone');
 
+// const themeController = ;
+document.body.addEventListener(
+  "clickControl",
+  ({ detail: { control, value } }) => {
 
+    if (control === "phoenixTheme") {
+      // value will be localStorage theme value (dark/light/auto)
+      const mode = value === 'auto' ? window.phoenix.utils.getSystemTheme() : value;
+      console.log(mode) 
+      // your code here
+      // console.log('background-color: '+$('body').css('background-color'))
+      // console.log('color: '+$('body').css('color'))
+
+      // var modeling = bpmnModeler.get('modeling');
+      // var eReg = bpmnModeler.get('elementRegistry');
+      // var elements = [];
+      // modeling.setColor([], { 
+      //   defaultFillColor: $('body').css('background-color'),
+      //   defaultStrokeColor: $('body').css('color')
+      // });
+      // var canvas = bpmnModeler.get('canvas');
+      // var overlays = bpmnModeler.get('overlays');
+      // overlays.updateViewbox(canvas.viewbox());
+      // var eventBus = bpmnModeler.get('eventBus');
+      // eventBus.fire('canvas.viewbox.changed', { viewbox: canvas.viewbox() });
+      // bpmnModeler = initModeler();
+    }
+  }
+);
 
 async function createNewDiagram() {
   // openDiagram(diagramXML);
-
   try {
     await bpmnModeler.createDiagram();
+    var eReg = bpmnModeler.get('elementRegistry');
 
-    var procObj = bpmnModeler.get('elementRegistry').get('Process_1').businessObject,
-      startObj = bpmnModeler.get('elementRegistry').get('StartEvent_1').businessObject;
+    var procObj = eReg.get('Process_1').businessObject,
+      startObj = eReg.get('StartEvent_1').businessObject;
     
-    var moddle = bpmnModeler.get('moddle');      
-    procObj.id = moddle.ids.nextPrefixed('Process_', procObj);
+    var moddle = bpmnModeler.get('moddle');    
+    
+    procObj.id = moddle.ids.nextPrefixed('Process_', procObj);  
+    procObj.name = "New "+ procObj.id.toLowerCase();
+    eReg.updateId('Process_1', procObj.id);
+   
     startObj.id = moddle.ids.nextPrefixed('StartEvent_', startObj);
+    eReg.updateId('StartEvent_1', startObj.id);
+    
+    // var ootElement = canvas.getRootElement(),
+    // rootElementGfx = canvas.getGraphics(rootElement);
+
+    var eventBus = bpmnModeler.get('eventBus');
+    eventBus.on('elements.changed', (e) => {
+      console.log(e)
+    });
 
     container
       .removeClass('with-error')
@@ -143,21 +184,9 @@ if (!window.FileList || !window.FileReader) {
   registerFileDrop(container, openDiagram);
 }
 
-const themeController = document.body;
 
-themeController.addEventListener(
-  "clickControl",
-  ({ detail: { control, value } }) => {
 
-    if (control === "phoenixTheme") {
-      // value will be localStorage theme value (dark/light/auto)
-      const mode = value === 'auto' ? window.phoenix.utils.getSystemTheme() : value;
-      console.log(mode) 
-      // your code here
 
-    }
-  }
-);
 
 var bpmnModeler = new BpmnModeler({
   container: '#js-canvas',
@@ -174,19 +203,17 @@ var bpmnModeler = new BpmnModeler({
   moddleExtensions: {
     magic: userTaskModdleDescriptor
   },
-  // bpmnRenderer: {
-  //   defaultFillColor: $('body').css('background-color'),
-  //   defaultStrokeColor: $('body').css('color'),
-  //   defaultTextColor: 'red'
-  // }
+  bpmnRenderer: {
+    defaultFillColor: $('body').css('background-color'),
+    defaultStrokeColor: $('body').css('color')
+  }
 });
+
 
 // bootstrap diagram functions
 
 $(function() {
-  bpmnModeler.repa
-  // console.log('background-color: '+$('body').css('background-color'))
-  // console.log('color: '+$('body').css('color'))
+
 
   //for debug purposes
   $('.buttons > li:last-child').on('click', async (e)=>{
