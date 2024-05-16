@@ -16,7 +16,7 @@ const LOW_PRIORITY = 500;
  * @param {PropertiesPanel} propertiesPanel
  * @param {Function} translate
  */
-export default function TaskPropertiesProvider(propertiesPanel, translate) {
+export default function TaskPropertiesProvider(propertiesPanel, injector, translate) {
 
   // API ////////
 
@@ -41,10 +41,10 @@ export default function TaskPropertiesProvider(propertiesPanel, translate) {
 
       // Add the "magic" group
       if (is(element, 'bpmn:UserTask')) {
-        groups.push(createUserTaskGroup(element, translate));
+        groups.push(createUserTaskGroup(element, injector, translate));
       }
       if (is(element, 'bpmn:ServiceTask')) {
-        groups.push(createServiceTaskGroup(element, translate));
+        groups.push(createServiceTaskGroup(element, injector, translate));
       }
       return groups;
     };
@@ -59,10 +59,10 @@ export default function TaskPropertiesProvider(propertiesPanel, translate) {
   propertiesPanel.registerProvider(LOW_PRIORITY, this);
 }
 
-TaskPropertiesProvider.$inject = [ 'propertiesPanel', 'translate' ];
+TaskPropertiesProvider.$inject = [ 'propertiesPanel', 'injector', 'translate' ];
 
 // Create the custom magic group
-function createUserTaskGroup(element, translate) {
+function createUserTaskGroup(element, injector, translate) {
 
   // create a group called "Magic properties".
   const propsGroup = {
@@ -76,7 +76,7 @@ function createUserTaskGroup(element, translate) {
 }
 
 // Create the custom service group
-function createServiceTaskGroup(element, translate) {
+function createServiceTaskGroup(element, injector, translate) {
 
   // create a group called "Magic properties".
   const propsGroup = {

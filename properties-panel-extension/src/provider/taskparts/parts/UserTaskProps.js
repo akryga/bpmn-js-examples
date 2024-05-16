@@ -1,7 +1,10 @@
 import { html } from 'htm/preact';
 
-import { TextFieldEntry, ListEntry, SelectEntry, isTextFieldEntryEdited } from '@bpmn-io/properties-panel';
+import { TextFieldEntry, ListEntry,   CollapsibleEntry, SelectEntry, isTextFieldEntryEdited } from '@bpmn-io/properties-panel';
 import { useService } from 'bpmn-js-properties-panel';
+
+var classnames = require('classnames');
+var jsxRuntime = require('preact/jsx-runtime');
 
 export default function(element) {
   // console.log(element);
@@ -91,7 +94,7 @@ function Assignee(props) {
     description=${ translate('Apply a black magic Assignee') }
     label=${ translate('Assignee') }
     items=${ getValue() }
-    component=${ 'p' }
+    component=${ Candidate }
     sortedItems=${ getValue() }
     getValue=${ getValue }
     setValue=${ setValue }
@@ -100,6 +103,27 @@ function Assignee(props) {
   />`;
 }
 
+function Candidate(props) {
+  const {
+    element,
+    id: idPrefix,
+    index,
+    item: extension,
+    open
+  } = props;
+
+  const translate = useService('translate');
+
+  const id = `${ idPrefix }-extension-${ index }`;
+
+  var placeholderLabel = translate('<empty>');
+  return jsxRuntime.jsx("div", {
+    // title: extension || placeholderLabel,
+    id: id,
+    class: classnames('assignee-candidate', !extension && 'empty'),
+    children: [extension || placeholderLabel]
+  });
+}
 
 
 function Priority(props) {
