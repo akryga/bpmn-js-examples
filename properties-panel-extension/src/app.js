@@ -12,6 +12,8 @@ import ruTranslateModule from './ru-translate/ru-translate'
 import $ from 'jquery';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 
+import tinySvg from 'tiny-svg';
+
 import {
   BpmnPropertiesPanelModule,
   BpmnPropertiesProviderModule
@@ -54,28 +56,44 @@ document.body.addEventListener(
   "clickControl",
   ({ detail: { control, value } }) => {
 
-    if (control === "phoenixTheme") {
-      // value will be localStorage theme value (dark/light/auto)
-      const mode = value === 'auto' ? window.phoenix.utils.getSystemTheme() : value;
-      console.log(mode) 
-      // your code here
-      // console.log('background-color: '+$('body').css('background-color'))
-      // console.log('color: '+$('body').css('color'))
+    // if (control === "phoenixTheme") {
+    //   // value will be localStorage theme value (dark/light/auto)
+    //   const mode = value === 'auto' ? window.phoenix.utils.getSystemTheme() : value;
+    //   console.log(mode) 
+    //   console.log('defaultFillColor: ', $('.bg-body-highlight').css('background-color'));
+    //   console.log('defaultStrokeColor: ', $('body').css('color'));
+    //   var eReg = bpmnModeler.get('elementRegistry'),
+    //   moddle = bpmnModeler.get('moddle');
 
-      // var modeling = bpmnModeler.get('modeling');
-      // var eReg = bpmnModeler.get('elementRegistry');
-      // var elements = [];
-      // modeling.setColor([], { 
-      //   defaultFillColor: $('body').css('background-color'),
-      //   defaultStrokeColor: $('body').css('color')
-      // });
-      // var canvas = bpmnModeler.get('canvas');
-      // var overlays = bpmnModeler.get('overlays');
-      // overlays.updateViewbox(canvas.viewbox());
-      // var eventBus = bpmnModeler.get('eventBus');
-      // eventBus.fire('canvas.viewbox.changed', { viewbox: canvas.viewbox() });
-      // bpmnModeler = initModeler();
-    }
+    //   var cnv = bpmnModeler.get('canvas');
+      
+
+    //   if(eReg)
+    //     {
+    //       console.log(eReg)
+    //       Object.keys(eReg._elements).map( e => eReg.get(e)).forEach(e => {
+    //         cnv.removeMarker(e, mode==='dark'?'light':'dark')
+    //         cnv.addMarker(e, mode);
+    //       });
+    //     }
+    //   // your code here
+    //   // console.log('background-color: '+$('body').css('background-color'))
+    //   // console.log('color: '+$('body').css('color'))
+
+    //   // var modeling = bpmnModeler.get('modeling');
+    //   // var eReg = bpmnModeler.get('elementRegistry');
+    //   // var elements = [];
+    //   // modeling.setColor([], { 
+    //   //   defaultFillColor: $('body').css('background-color'),
+    //   //   defaultStrokeColor: $('body').css('color')
+    //   // });
+    //   // var canvas = bpmnModeler.get('canvas');
+    //   // var overlays = bpmnModeler.get('overlays');
+    //   // overlays.updateViewbox(canvas.viewbox());
+    //   // var eventBus = bpmnModeler.get('eventBus');
+    //   // eventBus.fire('canvas.viewbox.changed', { viewbox: canvas.viewbox() });
+    //   // bpmnModeler = initModeler();
+    // }
   }
 );
 
@@ -204,8 +222,8 @@ const bpmnModeler = new BpmnModeler({
     magic: userTaskModdleDescriptor
   },
   bpmnRenderer: {
-    defaultFillColor: $('body').css('background-color'),
-    defaultStrokeColor: $('body').css('color')
+    defaultFillColor: 'var(--phoenix-body-bg)',//$('body').css('background-color'),
+    defaultStrokeColor: 'var(--phoenix-body-color)'//$('body').css('color')
   }
 });
 
@@ -226,8 +244,6 @@ bpmnModelerEventBus.on('userTask.addAssignee', (e) => {
 // bootstrap diagram functions
 
 $(function() {
-
-
   //for debug purposes
   $('.buttons > li:last-child').on('click', async (e)=>{
     // createForm();
